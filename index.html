@@ -4,6 +4,7 @@
   <title>MOLEC</title>
   <meta charset="UTF-8">
   <style>
+
     @font-face {
       font-family: "Molecular";
       src: url("fonts/molecular.ttf") format("truetype");
@@ -17,11 +18,12 @@
       padding: 40px;
       max-width: 800px;
       margin: auto;
+      line-height: 1.6;
     }
 
     h1 {
       font-family: "Molecular", sans-serif;
-      font-size: 48px;
+      font-size: 56px;
       color: #8aff8a;
       letter-spacing: 4px;
       text-shadow:
@@ -29,23 +31,55 @@
         0 0 5px #00ffff,
         0 0 12px #00ffff,
         0 0 20px #00ffff;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      color: #a8ffff;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 10px 0;
     }
 
     video {
       width: 100%;
       margin-top: 20px;
+      border-radius: 6px;
     }
 
     input {
       padding: 10px;
       margin-top: 20px;
       width: 250px;
+      border-radius: 4px;
+      border: none;
     }
 
     button {
       padding: 10px 20px;
       margin-left: 10px;
+      border-radius: 4px;
+      border: none;
+      background: #00bbbb;
+      color: white;
+      cursor: pointer;
     }
+
+    button:hover {
+      background: #00eeee;
+    }
+
   </style>
 </head>
 
@@ -54,7 +88,7 @@
 <h1>MOLEC</h1>
 
 <p>
-Build strange mechanical organisms in a microscopic ocean.
+A modular creature-building roguelike set in a strange mechanical plankton ecosystem.
 </p>
 
 <video controls>
@@ -62,10 +96,38 @@ Build strange mechanical organisms in a microscopic ocean.
 </video>
 
 <p>
-A modular creature-building roguelike where movement emerges from physics.
+Begin life as a tiny larval organism drifting in the pelagic.  
+Collect parts, evolve your creature, and grow into a powerful mechanical beast.
 </p>
 
-<h3>Follow development</h3>
+<h2>Build Your Creature</h2>
+
+<p>
+In MOLEC, creatures are assembled from modular parts that chain together to form limbs and structures.
+Different combinations produce unique movement styles, abilities, and combat strategies.
+</p>
+
+<ul>
+<li>⚙️ Modular parts with unique motion and abilities</li>
+<li>🧬 Emergent movement from physical limb chains</li>
+<li>🦑 Grow from a fragile larva to a complex organism</li>
+<li>🔁 Endless build combinations every run</li>
+</ul>
+
+<h2>Game Pillars</h2>
+
+<ul>
+<li><b>Creation</b> — design strange mechanical organisms</li>
+<li><b>Discovery</b> — uncover new parts and behaviours</li>
+<li><b>Problem Solving</b> — adapt builds to survive hazards and predators</li>
+<li><b>Power</b> — grow into an intricate apex creature</li>
+</ul>
+
+<h3>Follow Development</h3>
+
+<p>
+MOLEC is currently in early prototype development.
+</p>
 
 <input type="email" placeholder="your email">
 <button>Join</button>
