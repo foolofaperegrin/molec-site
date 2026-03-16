@@ -11,63 +11,43 @@
     }
 
     :root {
-      --bg: #071012;
-      --bg2: #0c1719;
-      --panel: rgba(10, 24, 27, 0.82);
-      --panel-border: rgba(110, 255, 240, 0.14);
-      --text: #d9e7e4;
-      --muted: #9db6b1;
+      --bg: #081012;
+      --bg-soft: #0d1719;
+      --text: #dce7e4;
+      --muted: #96aaa5;
       --green: #a4ff9d;
       --cyan: #66f7ff;
-      --cyan-soft: rgba(102, 247, 255, 0.18);
       --line: rgba(255, 255, 255, 0.08);
-      --max: 1080px;
+      --max-width: 920px;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background:
-        radial-gradient(circle at top, rgba(0, 255, 255, 0.08), transparent 30%),
-        radial-gradient(circle at 20% 80%, rgba(100, 255, 140, 0.08), transparent 25%),
-        linear-gradient(180deg, var(--bg) 0%, #050b0c 100%);
+        radial-gradient(circle at top, rgba(0, 255, 255, 0.06), transparent 28%),
+        linear-gradient(180deg, #071012 0%, #05090a 100%);
       color: var(--text);
       line-height: 1.6;
     }
 
-    a {
-      color: var(--cyan);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
     .page {
-      width: min(calc(100% - 32px), var(--max));
+      width: min(calc(100% - 32px), var(--max-width));
       margin: 0 auto;
-      padding: 20px 0 64px;
+      padding: 24px 0 72px;
     }
 
     .hero {
       position: relative;
+      margin-bottom: 36px;
       overflow: hidden;
-      border: 1px solid var(--panel-border);
-      border-radius: 24px;
-      background: #081012;
-      box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.45),
-        0 0 0 1px rgba(255,255,255,0.02) inset;
-      margin-top: 16px;
+      border-radius: 20px;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
     .hero video {
@@ -75,41 +55,23 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
-      background: #000;
-      filter: brightness(0.52) saturate(1.05);
+      filter: brightness(0.55) saturate(1.05);
     }
 
     .hero-overlay {
       position: absolute;
       inset: 0;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 32px;
-      background:
-        linear-gradient(to top, rgba(4, 10, 11, 0.92) 0%, rgba(4, 10, 11, 0.58) 34%, rgba(4, 10, 11, 0.1) 68%, rgba(4, 10, 11, 0.02) 100%);
+      align-items: flex-end;
+      padding: 28px;
+      background: linear-gradient(to top, rgba(5, 10, 11, 0.9) 0%, rgba(5, 10, 11, 0.45) 40%, rgba(5, 10, 11, 0.05) 100%);
       pointer-events: none;
     }
 
-    .eyebrow {
-      display: inline-block;
-      align-self: flex-start;
-      margin-bottom: 10px;
-      padding: 6px 10px;
-      border: 1px solid rgba(102, 247, 255, 0.22);
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.28);
-      color: #b9fcff;
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      backdrop-filter: blur(6px);
-    }
-
     h1 {
-      margin: 0 0 8px;
+      margin: 0;
       font-family: "Molecular", sans-serif;
-      font-size: clamp(48px, 10vw, 108px);
+      font-size: clamp(54px, 10vw, 108px);
       line-height: 0.95;
       letter-spacing: 0.08em;
       color: var(--green);
@@ -120,166 +82,95 @@
         0 0 20px #00ffff;
     }
 
-    .hero-tagline {
-      max-width: 720px;
-      margin: 0;
-      font-size: clamp(18px, 2.6vw, 24px);
-      color: #ebfffd;
-      text-wrap: balance;
+    main {
+      display: block;
+    }
+
+    section {
+      margin-bottom: 42px;
     }
 
     .intro {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 24px;
-      margin-top: 24px;
-      align-items: start;
+      max-width: 760px;
     }
 
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      padding: 22px 22px 20px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    .intro p {
+      font-size: 20px;
+      margin: 0 0 18px;
+      color: #e3f1ee;
     }
 
-    .lede {
-      font-size: 18px;
-      margin: 0 0 14px;
-      color: #e6f7f4;
+    .body-copy {
+      max-width: 760px;
     }
 
-    .muted {
+    .body-copy p {
+      margin: 0 0 16px;
       color: var(--muted);
+      font-size: 17px;
     }
 
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 11px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(102, 247, 255, 0.24);
-      background: rgba(102, 247, 255, 0.08);
-      color: #dfffff;
-      font-weight: bold;
-      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-    }
-
-    .button:hover {
-      text-decoration: none;
-      background: rgba(102, 247, 255, 0.16);
-      border-color: rgba(102, 247, 255, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .button.secondary {
-      background: rgba(164, 255, 157, 0.08);
-      border-color: rgba(164, 255, 157, 0.24);
-      color: #eaffea;
-    }
-
-    .stat-list {
-      display: grid;
-      gap: 14px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .stat-list li {
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .stat-list li:last-child {
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .stat-label {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--cyan);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .section {
-      margin-top: 24px;
-    }
-
-    .section h2 {
+    h2 {
       margin: 0 0 14px;
-      font-size: 15px;
+      font-size: 13px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #bdfcff;
+      color: var(--cyan);
     }
 
-    .two-col {
+    .features {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: 18px 28px;
+      max-width: 760px;
+      padding-top: 6px;
+      border-top: 1px solid var(--line);
     }
 
-    .feature-list,
-    .pillar-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 12px;
-    }
-
-    .feature-list li,
-    .pillar-list li {
-      padding: 14px 16px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .feature-list strong,
-    .pillar-list strong {
+    .feature strong {
+      display: block;
+      margin-bottom: 4px;
       color: #eefefd;
+      font-size: 16px;
     }
 
-    .signup {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
-      align-items: start;
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .follow {
+      max-width: 760px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .follow p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 16px;
     }
 
     .signup-form {
       display: flex;
-      flex-wrap: wrap;
       gap: 12px;
-      margin-top: 14px;
+      flex-wrap: wrap;
     }
 
     input[type="email"] {
-      flex: 1 1 260px;
+      flex: 1 1 280px;
       min-width: 0;
       padding: 14px 16px;
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
       outline: none;
     }
 
     input[type="email"]::placeholder {
-      color: #7d9591;
+      color: #7b908b;
     }
 
     input[type="email"]:focus {
@@ -290,159 +181,115 @@
     button {
       padding: 14px 18px;
       border: none;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(102, 247, 255, 0.95), rgba(55, 203, 218, 0.92));
-      color: #032529;
+      border-radius: 12px;
+      background: #66f7ff;
+      color: #042024;
       font-weight: bold;
       cursor: pointer;
-      transition: transform 0.15s ease, filter 0.15s ease;
     }
 
     button:hover {
-      transform: translateY(-1px);
       filter: brightness(1.05);
     }
 
-    .footer-note {
+    .small {
       margin-top: 12px;
       font-size: 14px;
-      color: var(--muted);
+      color: #7f9590;
     }
 
-    @media (max-width: 860px) {
-      .hero-overlay {
-        padding: 22px;
-      }
-
-      .intro,
-      .two-col,
-      .signup {
+    @media (max-width: 700px) {
+      .features {
         grid-template-columns: 1fr;
       }
 
-      .page {
-        width: min(calc(100% - 24px), var(--max));
-        padding-bottom: 42px;
+      .hero-overlay {
+        padding: 18px;
+      }
+
+      .intro p {
+        font-size: 18px;
+      }
+
+      .body-copy p {
+        font-size: 16px;
       }
     }
 
     @media (max-width: 560px) {
+      .page {
+        width: min(calc(100% - 20px), var(--max-width));
+        padding-top: 14px;
+      }
+
       .hero video {
         aspect-ratio: 4 / 5;
       }
 
-      .hero-overlay {
-        justify-content: flex-end;
-        padding: 18px;
-      }
-
-      .panel {
-        padding: 18px;
-        border-radius: 18px;
-      }
-
-      .button-row,
       .signup-form {
         flex-direction: column;
       }
 
-      .button,
-      button {
-        width: 100%;
-        text-align: center;
-      }
-
+      button,
       input[type="email"] {
         width: 100%;
-        flex-basis: auto;
-      }
-
-      .hero-tagline {
-        font-size: 17px;
       }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-
+  <div class="page">
     <section class="hero">
-      <video controls poster="">
+      <video controls>
         <source src="video.mp4" type="video/mp4">
       </video>
-
       <div class="hero-overlay">
-        <div class="eyebrow">Early Prototype</div>
         <h1>MOLEC</h1>
-        <p class="hero-tagline">
-          Build strange mechanical plankton and grow from a fragile larva into a powerful pelagic organism.
-        </p>
       </div>
     </section>
 
-    <section class="intro">
-      <div class="panel">
-        <p class="lede">
-          MOLEC is a modular creature-building roguelike set in a strange marine ecosystem of drifting mechanical life.
+    <main>
+      <section class="intro">
+        <p>
+          A modular creature-building roguelike set in a strange pelagic world of drifting mechanical life.
         </p>
-        <p class="muted">
-          Chain together moving parts, adapt your build, gather resources, and survive predators and hazards as your creature evolves into something larger, stranger, and more capable.
-        </p>
+      </section>
 
-        <div class="button-row">
-          <a class="button" href="#follow">Follow development</a>
-          <a class="button secondary" href="#about">Learn more</a>
+      <section class="body-copy">
+        <p>
+          Begin as a small larval organism, gather parts and resources, and slowly grow into something larger, stranger, and more capable.
+        </p>
+        <p>
+          In MOLEC, creatures are assembled from modular parts that can be chained together into limbs, tools, armour, and weapons. Different configurations create different movement styles, abilities, and survival strategies.
+        </p>
+      </section>
+
+      <section>
+        <h2>What shapes the game</h2>
+        <div class="features">
+          <div class="feature">
+            <strong>Build your beastie</strong>
+            <p>Reconfigure collected parts into new forms at any time.</p>
+          </div>
+          <div class="feature">
+            <strong>Emergent movement</strong>
+            <p>Motion comes from chained parts interacting together.</p>
+          </div>
+          <div class="feature">
+            <strong>Survive and adapt</strong>
+            <p>Deal with predators, hazards, and shifting build possibilities.</p>
+          </div>
+          <div class="feature">
+            <strong>Grow into power</strong>
+            <p>Start fragile, then become intricate, dangerous, and weird.</p>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <aside class="panel">
-        <ul class="stat-list">
-          <li>
-            <span class="stat-label">Core fantasy</span>
-            Grow your own weird mechanical beastie
-          </li>
-          <li>
-            <span class="stat-label">Key hook</span>
-            Emergent movement from chained, animated parts
-          </li>
-          <li>
-            <span class="stat-label">Touchstones</span>
-            Snake, Spore, Lego
-          </li>
-        </ul>
-      </aside>
-    </section>
-
-    <section class="section two-col" id="about">
-      <div class="panel">
-        <h2>What it is</h2>
-        <ul class="feature-list">
-          <li><strong>Build your creature</strong><br>Assemble modular parts into long chains, limbs, armour, tools, and weapons.</li>
-          <li><strong>Discover new combinations</strong><br>Collected parts and upgrades create surprising synergies across every run.</li>
-          <li><strong>Adapt to survive</strong><br>Change your build to deal with predators, hazards, resource scarcity, and combat.</li>
-          <li><strong>Grow into power</strong><br>Start tiny and vulnerable, then become a larger and more intricate organism.</li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <h2>Game pillars</h2>
-        <ul class="pillar-list">
-          <li><strong>Creation</strong> — design unusual creatures from modular parts.</li>
-          <li><strong>Discovery</strong> — uncover new parts, behaviours, and upgrade combinations.</li>
-          <li><strong>Problem Solving</strong> — tune your build to meet environmental and combat challenges.</li>
-          <li><strong>Power</strong> — become more complex, capable, and dangerous over the course of a run.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section signup" id="follow">
-      <div class="panel">
+      <section class="follow">
         <h2>Follow development</h2>
-        <p class="lede">
+        <p>
           MOLEC is currently in early prototype development.
-        </p>
-        <p class="muted">
-          Join the mailing list to hear about updates, testing, and future builds.
         </p>
 
         <form class="signup-form">
@@ -450,30 +297,11 @@
           <button type="submit">Join</button>
         </form>
 
-        <p class="footer-note">
-          You can also link this section later to itch.io, YouTube, or a devlog.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>Current focus</h2>
-        <ul class="stat-list">
-          <li>
-            <span class="stat-label">Prototype</span>
-            Core creature building and emergent motion
-          </li>
-          <li>
-            <span class="stat-label">Next</span>
-            Audience validation, playtest interest, and early community
-          </li>
-          <li>
-            <span class="stat-label">Later</span>
-            Devlogs, sandbox sharing, and broader reveal material
-          </li>
-        </ul>
-      </div>
-    </section>
-
-  </main>
+        <div class="small">
+          More updates, devlogs, and playtesting info to come.
+        </div>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
