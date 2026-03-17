@@ -4,6 +4,27 @@
   <title>MOLEC</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+    ANALYTICS OPTION 1: PLAUSIBLE
+    Uncomment and replace yourdomain.com when ready.
+
+    <script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>
+  -->
+
+  <!--
+    ANALYTICS OPTION 2: GOOGLE ANALYTICS
+    Uncomment and replace G-XXXXXXXXXX when ready.
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+  -->
+
   <style>
     @font-face {
       font-family: "Molecular";
@@ -19,6 +40,7 @@
       --cyan: #66f7ff;
       --line: rgba(255, 255, 255, 0.08);
       --max-width: 920px;
+      --success: #9effc8;
     }
 
     * {
@@ -64,7 +86,12 @@
       display: flex;
       align-items: flex-end;
       padding: 28px;
-      background: linear-gradient(to top, rgba(5, 10, 11, 0.9) 0%, rgba(5, 10, 11, 0.45) 40%, rgba(5, 10, 11, 0.05) 100%);
+      background: linear-gradient(
+        to top,
+        rgba(5, 10, 11, 0.9) 0%,
+        rgba(5, 10, 11, 0.45) 40%,
+        rgba(5, 10, 11, 0.05) 100%
+      );
       pointer-events: none;
     }
 
@@ -157,6 +184,7 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      align-items: stretch;
     }
 
     input[type="email"] {
@@ -168,6 +196,7 @@
       background: rgba(255,255,255,0.04);
       color: var(--text);
       outline: none;
+      font-size: 16px;
     }
 
     input[type="email"]::placeholder {
@@ -187,6 +216,7 @@
       color: #042024;
       font-weight: bold;
       cursor: pointer;
+      font-size: 16px;
     }
 
     button:hover {
@@ -197,6 +227,21 @@
       margin-top: 12px;
       font-size: 14px;
       color: #7f9590;
+    }
+
+    .form-note,
+    .form-success {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .form-note {
+      color: #7f9590;
+    }
+
+    .form-success {
+      color: var(--success);
+      display: none;
     }
 
     @media (max-width: 700px) {
@@ -241,8 +286,9 @@
 <body>
   <div class="page">
     <section class="hero">
-      <video controls>
-        <source src="video.mp4" type="video/mp4">
+      <video controls playsinline preload="metadata">
+        <source src="media/verbs.mp4" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
       <div class="hero-overlay">
         <h1>MOLEC</h1>
@@ -252,7 +298,7 @@
     <main>
       <section class="intro">
         <p>
-          A modular creature-building roguelite set in a strange pelagic world of drifting mechanical life.
+          A modular creature-building roguelite set in a strange pelagic world of drifting synthetic life.
         </p>
       </section>
 
@@ -261,12 +307,11 @@
           Begin as a small larval organism, gather parts and resources, and piece-by-piece grow into something larger, stranger, and more capable.
         </p>
         <p>
-          In Molec, creatures are assembled from modular, mechanical parts that can be chained together into limbs, tools, armour, and weapons. Different configurations create different movement styles, abilities, and survival strategies.
+          In Molec, creatures are assembled from modular parts that can be chained together into limbs, tools, armour, and weapons. Different configurations create different movement styles, abilities, and survival strategies.
         </p>
       </section>
 
       <section>
-      
         <div class="features">
           <div class="feature">
             <strong>Build your beastie</strong>
@@ -282,7 +327,7 @@
           </div>
           <div class="feature">
             <strong>Grow into power</strong>
-            <p>Start fragile, then become intricate, dangerous, and otherworldly</p>
+            <p>Start fragile, then become intricate, dangerous, and otherworldly.</p>
           </div>
         </div>
       </section>
@@ -293,10 +338,43 @@
           Molec is currently in early prototype development.
         </p>
 
-        <form class="signup-form">
-          <input type="email" placeholder="your email" aria-label="Email address">
+        <!--
+          MAILING LIST SETUP
+
+          EASIEST OPTION: BUTTONDOWN
+
+          1. Make a Buttondown account
+          2. Replace YOUR_BUTTONDOWN_USERNAME below
+          3. Done — emails are stored in Buttondown, not in this HTML file
+
+          If you do not want the popup new-tab behavior, you can remove
+          target and onsubmit and just let it redirect normally.
+        -->
+        <form
+          class="signup-form"
+          id="signup-form"
+          action="https://buttondown.com/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
+          method="post"
+          target="popupwindow"
+          onsubmit="window.open('https://buttondown.com/YOUR_BUTTONDOWN_USERNAME', 'popupwindow')"
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="your email"
+            aria-label="Email address"
+            required
+          >
           <button type="submit">Join</button>
         </form>
+
+        <div class="form-note">
+          Join for occasional devlogs, prototype updates, and future playtesting.
+        </div>
+
+        <div class="form-success" id="form-success">
+          Thanks — if the signup worked, you should see the subscription window open.
+        </div>
 
         <div class="small">
           More updates, devlogs, and playtesting info to come.
@@ -304,5 +382,15 @@
       </section>
     </main>
   </div>
+
+  <script>
+    // Small helper so the page feels responsive when the form is submitted.
+    const signupForm = document.getElementById("signup-form");
+    const successMessage = document.getElementById("form-success");
+
+    signupForm.addEventListener("submit", function () {
+      successMessage.style.display = "block";
+    });
+  </script>
 </body>
 </html>
