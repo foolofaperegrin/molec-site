@@ -30,10 +30,14 @@
       font-family: "Molecular";
       src: url("fonts/molecular.ttf") format("truetype");
     }
+    @font-face {
+      font-family: "RenogareSoft-Regular";
+      src: url("fonts/RenogareSoft-Regular.ttf") format("truetype");
+    }
 
     :root {
-      --bg: #081012;
-      --bg-soft: #0d1719;
+      --bg: #000000;
+      --bg-soft: #00303a;
       --text: #94ffe3;
       --muted: #9aa798;
       --green: #a4ff9d;
@@ -52,7 +56,7 @@
       font-family: Arial, sans-serif;
       background:
         radial-gradient(circle at top, rgba(0, 255, 255, 0.06), transparent 28%),
-        linear-gradient(180deg, #071012 0%, #05090a 100%);
+        linear-gradient(180deg, #01201f 0%, #010c08 100%);
       color: var(--text);
       line-height: 1.6;
     }
@@ -67,16 +71,16 @@
       position: relative;
       margin-bottom: 36px;
       overflow: hidden;
-      border-radius: 20px;
-      background: #000;
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      border-radius: 50px;
+      background: #425a68;
+      border: 3px solid rgba(255,255,255,0.06);
+      box-shadow: 0 20px 50px rgba(2, 20, 34, 0.28);
     }
 
     .hero video {
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16 / 7;
       object-fit: cover;
       filter: brightness(0.82) saturate(1.1) contrast(1.02);
     }
@@ -86,7 +90,7 @@
       inset: 0;
       display: flex;
       align-items: flex-end;
-      padding: 64px;
+      padding: 0px;
       background:
         linear-gradient(
           to top,
@@ -135,9 +139,10 @@
     }
 
     .intro p {
-      font-size: 20px;
+      font-size: 16px;
       margin: 0 0 18px;
       color: #ffffff;
+      font-family: "RenogareSoft-Regular", sans-serif;
     }
 
     .body-copy {
@@ -170,6 +175,7 @@
 
     .feature strong {
       display: block;
+      font-family: "RenogareSoft-Regular", sans-serif;
       margin-bottom: 4px;
       color: #f3974c;
       font-size: 16px;
@@ -317,13 +323,13 @@
     <main>
       <section class="intro">
         <p>
-          A modular creature-building roguelite set in a strange pelagic world of drifting synthetic life.
+          A modular creature-building roguelite set in a strange aquatic ecosystem of drifting mechanical life.
         </p>
       </section>
 
       <section class="body-copy">
         <p>
-          Begin as a small larval organism, gather parts and resources, and grow piece-by-piece into something larger, stranger, and more capable.
+          Begin as a small larval hatchling, gather parts and resources, and grow piece-by-piece into something larger, stranger, and more capable.
         </p>
         <p>
           In Molec, creatures are assembled from modular parts that can be chained together into limbs, tools, armour, and weapons. Different configurations create different movement styles, abilities, and survival strategies.
@@ -338,11 +344,11 @@
           </div>
           <div class="feature">
             <strong>Emergent movement</strong>
-            <p>Motion comes from chained parts interacting together.</p>
+            <p>Motions and actions come from chained parts interacting together.</p>
           </div>
           <div class="feature">
             <strong>Survive and adapt</strong>
-            <p>Deal with predators, hazards, and shifting build possibilities.</p>
+            <p>Deal with fearsome predators, troublesome prey, environmental hazards, and shifting build possibilities.</p>
           </div>
           <div class="feature">
             <strong>Grow into power</strong>
@@ -354,7 +360,7 @@
       <section class="follow">
         <h2>Follow development</h2>
         <p>
-          Molec is currently in early prototype development.  Join our mailing list for occasional devlogs, prototype updates, and future playtesting.
+          Molec is currently in early prototype development.  Join our mailing list for devlogs, updates, and future playtesting.
         </p>
 
         <form
@@ -377,7 +383,7 @@
 
         
         <div class="form-success" id="form-success">
-          Thanks — if the signup worked, you should see the subscription window open.
+          Thanks — if the sign up worked, you should see the subscription window open.
         </div>
 
         <div class="small">
