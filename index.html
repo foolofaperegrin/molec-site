@@ -4,7 +4,7 @@
   <title>MOLEC</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <script async src="https://f.convertkit.com/ckjs/ck.5.js"></script>
   <!--
     ANALYTICS OPTION 1: PLAUSIBLE
     Uncomment and replace yourdomain.com when ready.
@@ -248,17 +248,9 @@
       color: #7f9590;
     }
 
-    .form-note,
     .form-success {
       margin-top: 12px;
       font-size: 14px;
-    }
-
-    .form-note {
-      color: #7f9590;
-    }
-
-    .form-success {
       color: var(--success);
       display: none;
     }
@@ -360,20 +352,18 @@
       <section class="follow">
         <h2>Follow development</h2>
         <p>
-          Molec is currently in early prototype development.  Join our mailing list for devlogs, updates, and future playtesting.
+          Molec is currently in early prototype development. Join our mailing list for devlogs, updates, and future playtesting.
         </p>
 
         <form
           class="signup-form"
           id="signup-form"
-          action="https://buttondown.com/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
+          action="https://app.kit.com/forms/9215511/subscriptions"
           method="post"
-          target="popupwindow"
-          onsubmit="window.open('https://buttondown.com/YOUR_BUTTONDOWN_USERNAME', 'popupwindow')"
         >
           <input
             type="email"
-            name="email"
+            name="email_address"
             placeholder="your email"
             aria-label="Email address"
             required
@@ -381,9 +371,8 @@
           <button type="submit">Join</button>
         </form>
 
-        
         <div class="form-success" id="form-success">
-          Thanks — if the sign up worked, you should see the subscription window open.
+          Thanks — your signup is being submitted. Check your email to confirm your subscription.
         </div>
 
         <div class="small">
