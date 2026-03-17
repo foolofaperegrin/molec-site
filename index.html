@@ -70,6 +70,7 @@
       border-radius: 20px;
       background: #000;
       border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
     }
 
     .hero video {
@@ -77,7 +78,7 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
-      filter: brightness(0.55) saturate(1.05);
+      filter: brightness(0.82) saturate(1.1) contrast(1.02);
     }
 
     .hero-overlay {
@@ -86,13 +87,26 @@
       display: flex;
       align-items: flex-end;
       padding: 28px;
-      background: linear-gradient(
-        to top,
-        rgba(5, 10, 11, 0.9) 0%,
-        rgba(5, 10, 11, 0.45) 40%,
-        rgba(5, 10, 11, 0.05) 100%
-      );
+      background:
+        linear-gradient(
+          to top,
+          rgba(5, 10, 11, 0.58) 0%,
+          rgba(5, 10, 11, 0.18) 32%,
+          rgba(5, 10, 11, 0.02) 68%,
+          rgba(5, 10, 11, 0) 100%
+        );
       pointer-events: none;
+    }
+
+    .hero-title {
+      display: inline-block;
+      max-width: 100%;
+      padding: 10px 14px 8px;
+      border-radius: 14px;
+      background: rgba(4, 15, 17, 0.34);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     h1 {
@@ -103,10 +117,9 @@
       letter-spacing: 0.08em;
       color: var(--green);
       text-shadow:
-        0 0 5px #00ffff,
-        0 0 5px #00ffff,
-        0 0 12px #00ffff,
-        0 0 20px #00ffff;
+        0 0 5px rgba(0, 255, 255, 0.85),
+        0 0 10px rgba(0, 255, 255, 0.7),
+        0 0 18px rgba(0, 255, 255, 0.5);
     }
 
     main {
@@ -140,8 +153,8 @@
     h2 {
       margin: 0 0 14px;
       font-family: "Molecular", sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.14em;
+      font-size: 20px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--cyan);
     }
@@ -280,18 +293,24 @@
       input[type="email"] {
         width: 100%;
       }
+
+      .hero-title {
+        padding: 8px 10px 6px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <section class="hero">
-      <video controls playsinline preload="metadata">
+      <video autoplay muted loop playsinline preload="metadata">
         <source src="media/verbs.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <div class="hero-overlay">
-        <h1>MOLEC</h1>
+        <div class="hero-title">
+          <h1>MOLEC</h1>
+        </div>
       </div>
     </section>
 
@@ -338,18 +357,6 @@
           Molec is currently in early prototype development.
         </p>
 
-        <!--
-          MAILING LIST SETUP
-
-          EASIEST OPTION: BUTTONDOWN
-
-          1. Make a Buttondown account
-          2. Replace YOUR_BUTTONDOWN_USERNAME below
-          3. Done — emails are stored in Buttondown, not in this HTML file
-
-          If you do not want the popup new-tab behavior, you can remove
-          target and onsubmit and just let it redirect normally.
-        -->
         <form
           class="signup-form"
           id="signup-form"
@@ -384,7 +391,6 @@
   </div>
 
   <script>
-    // Small helper so the page feels responsive when the form is submitted.
     const signupForm = document.getElementById("signup-form");
     const successMessage = document.getElementById("form-success");
 
