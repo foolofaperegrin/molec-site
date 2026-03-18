@@ -25,293 +25,22 @@
     </script>
   -->
 
-  <style>
-    @font-face {
-      font-family: "Molecular";
-      src: url("fonts/molecular.ttf") format("truetype");
-    }
-    @font-face {
-      font-family: "RenogareSoft-Regular";
-      src: url("fonts/RenogareSoft-Regular.ttf") format("truetype");
-    }
-
-    :root {
-      --bg: #000000;
-      --bg-soft: #00303a;
-      --text: #94ffe3;
-      --muted: #9aa798;
-      --green: #a4ff9d;
-      --cyan: #45e092;
-      --line: rgba(255, 255, 255, 0.08);
-      --max-width: 920px;
-      --success: #9effc8;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(0, 255, 255, 0.06), transparent 28%),
-        linear-gradient(180deg, #01201f 0%, #010c08 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    .page {
-      width: min(calc(100% - 32px), var(--max-width));
-      margin: 0 auto;
-      padding: 24px 0 72px;
-    }
-
-    .hero {
-      position: relative;
-      margin-bottom: 36px;
-      overflow: hidden;
-      border-radius: 50px;
-      background: #425a68;
-      border: 3px solid rgba(255,255,255,0.06);
-      box-shadow: 0 20px 50px rgba(2, 20, 34, 0.28);
-    }
-
-    .hero video {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      object-fit: cover;
-      filter: brightness(0.82) saturate(1.1) contrast(1.02);
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      padding: 0px;
-      background:
-        linear-gradient(
-          to top,
-          rgba(5, 10, 11, 0.58) 0%,
-          rgba(5, 10, 11, 0.18) 32%,
-          rgba(5, 10, 11, 0.02) 68%,
-          rgba(5, 10, 11, 0) 100%
-        );
-      pointer-events: none;
-    }
-
-    .hero-title {
-      display: inline-block;
-      max-width: 100%;
-      padding: 32px 18px 8px;
-      border-radius: 14px;
-      background: rgba(4, 15, 17, 0.34);
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    h1 {
-      margin: 0;
-      font-family: "Molecular", sans-serif;
-      font-size: clamp(54px, 10vw, 108px);
-      line-height: 0.95;
-      letter-spacing: 0.08em;
-      color: var(--green);
-      text-shadow:
-        0 0 5px rgba(0, 255, 255, 0.85),
-        0 0 10px rgba(0, 255, 255, 0.7),
-        0 0 18px rgba(0, 255, 255, 0.5);
-    }
-
-    main {
-      display: block;
-    }
-
-    section {
-      margin-bottom: 42px;
-    }
-
-    .intro {
-      max-width: 760px;
-    }
-
-    .intro p {
-      font-size: 16px;
-      margin: 0 0 18px;
-      color: #ffffff;
-      font-family: "RenogareSoft-Regular", sans-serif;
-    }
-
-    .body-copy {
-      max-width: 760px;
-    }
-
-    .body-copy p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    h2 {
-      margin: 0 0 14px;
-      font-family: "Molecular", sans-serif;
-      font-size: 38px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--cyan);
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px 28px;
-      max-width: 760px;
-      padding-top: 6px;
-      border-top: 1px solid var(--line);
-    }
-
-    .feature strong {
-      display: block;
-      font-family: "RenogareSoft-Regular", sans-serif;
-      margin-bottom: 4px;
-      color: #f3974c;
-      font-size: 16px;
-    }
-
-    .feature p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .follow {
-      max-width: 760px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-    }
-
-    .follow p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .signup-form {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: stretch;
-    }
-
-    input[type="email"] {
-      flex: 1 1 280px;
-      min-width: 0;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      outline: none;
-      font-size: 16px;
-    }
-
-    input[type="email"]::placeholder {
-      color: #7b908b;
-    }
-
-    input[type="email"]:focus {
-      border-color: rgba(102, 247, 255, 0.45);
-      box-shadow: 0 0 0 3px rgba(102, 247, 255, 0.12);
-    }
-
-    button {
-      padding: 14px 18px;
-      border: none;
-      border-radius: 12px;
-      background: #66f7ff;
-      color: #042024;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    button:hover {
-      filter: brightness(1.05);
-    }
-
-    .small {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #7f9590;
-    }
-
-    .form-success {
-      margin-top: 12px;
-      font-size: 14px;
-      color: var(--success);
-      display: none;
-    }
-
-    @media (max-width: 700px) {
-      .features {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-overlay {
-        padding: 18px;
-      }
-
-      .intro p {
-        font-size: 18px;
-      }
-
-      .body-copy p {
-        font-size: 16px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .page {
-        width: min(calc(100% - 20px), var(--max-width));
-        padding-top: 14px;
-      }
-
-      .hero video {
-        aspect-ratio: 4 / 5;
-      }
-
-      .signup-form {
-        flex-direction: column;
-      }
-
-      button,
-      input[type="email"] {
-        width: 100%;
-        max-height: 2em; 
-      }
-
-      .hero-title {
-        padding: 8px 10px 6px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="page">
+   
+
     <section class="hero">
       <video autoplay muted loop playsinline preload="metadata">
         <source src="media/verbs.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-      <div class="hero-overlay">
-        <div class="hero-title">
-          <h1>MOLEC</h1>
-        </div>
-      </div>
     </section>
+
+    <header class="site-header">
+      <h1>MOLEC</h1>
+    </header>
 
     <main>
       <section class="intro">
@@ -351,7 +80,7 @@
       </section>
 
       <section class="follow">
-        <h2>Follow development</h2>
+        <strong>Follow development</strong>
         <p>
           Molec is currently in early prototype development. Join our mailing list for devlogs, updates, and future playtesting.
         </p>
@@ -374,11 +103,11 @@
         </form>
 
         <div class="form-success" id="form-success">
-          Thanks — your signup is being submitted. Check your email to confirm your subscription.
+          Thank you!
         </div>
 
         <div class="small">
-          More updates, devlogs, and playtesting info to come.
+          Stay tuned! Devlogs, updates and playtesting info to come.
         </div>
       </section>
     </main>
