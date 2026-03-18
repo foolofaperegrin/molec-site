@@ -18,6 +18,7 @@
   --bg-icon-tint-b: #00fff2;
   --bg-tile-opacity: 0.06;
   --bg-tile-y-power: 2.1;
+  --social-tint: var(--cyan);
   --line: rgba(255, 255, 255, 0.08);
   --max-width: 920px;
   --success: #00ff6e;
@@ -327,10 +328,6 @@ h2 {
   font-weight: bold;
 }
 
-.survey-button:hover {
-  filter: brightness(1.08);
-}
-
 .signup-form {
   display: flex;
   gap: 12px;
@@ -370,14 +367,95 @@ button {
   font-size: 16px;
 }
 
-button:hover {
-  filter: brightness(1.05);
+/* Shared hover/focus glow for clickable elements */
+:is(button, .survey-button, .social-link) {
+  transition: transform 160ms ease, filter 160ms ease, background 160ms ease,
+    border-color 160ms ease;
+}
+
+:is(button, .survey-button, .social-link):hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 12px rgba(102, 247, 255, 0.18))
+    drop-shadow(0 0 24px rgba(69, 224, 146, 0.12));
+}
+
+:is(button, .survey-button, .social-link):focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 12px rgba(102, 247, 255, 0.22))
+    drop-shadow(0 0 26px rgba(69, 224, 146, 0.14));
 }
 
 .small {
   margin-top: 12px;
   font-size: 14px;
   color: #7f9590;
+}
+
+.social-tray {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-header {
+  flex-basis: 100%;
+  text-align: center;
+  font-family: "RenogareSoft-Regular", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  color: #f3974c;
+  margin-bottom: 6px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+}
+
+.social-link:hover {
+  border-color: rgba(0, 255, 255, 0.22);
+  background: rgba(0, 255, 255, 0.06);
+}
+
+.social-icon {
+  height: 20px;
+  width: auto;
+  display: block;
+  /* Recolor white PNGs */
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(67%)
+    sepia(31%)
+    saturate(520%)
+    hue-rotate(108deg)
+    brightness(92%)
+    contrast(98%);
+}
+
+.social-link:hover .social-icon {
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(86%)
+    sepia(27%)
+    saturate(650%)
+    hue-rotate(86deg)
+    brightness(112%)
+    contrast(102%);
 }
 
 .form-success {
