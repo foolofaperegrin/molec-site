@@ -185,7 +185,10 @@
       // 0.10 = ~10% of screen area covered by icons (approx)
       const COVERAGE = 1.0;
       const GAP_PX = 0;
-      const OPACITY = 0.07;
+      // Opacity: can ramp up toward bottom
+      const OPACITY_MIN = 0.02;
+      const OPACITY_MAX = 0.3;
+      const OPACITY_POWER = 2;
       const ROTATION_RANGE_DEG = 328;
       const rootStyles = getComputedStyle(document.documentElement);
       const TINT_A =
@@ -195,7 +198,16 @@
 
       // Size curve: > 1 makes larger icons rarer (e.g. 2.2).
       // 1 = uniform distribution.
-      const SIZE_BIAS = 2.2;
+      const SIZE_BIAS = 5.2;
+
+      // Position/glow tuning
+      // - Y_BIAS > 1 pushes icons toward bottom of screen
+      // - Glow ramps up as icons are lower on the page
+      const Y_BIAS = 1.3;
+      const GLOW_POWER = 10.8;
+      const GLOW_BLUR_MIN_PX = 0;
+      const GLOW_BLUR_MAX_PX = 24;
+      const GLOW_ALPHA_MAX = 0.54;
 
       const ICONS = [
         "media/icon_bilica.png",
@@ -260,6 +272,12 @@
         return `rgb(${r} ${g} ${bb})`;
       }
 
+      function rgbParts(rgbString) {
+        const m = rgbString.match(/(\d+)\s+(\d+)\s+(\d+)/);
+        if (!m) return { r: 255, g: 255, b: 255 };
+        return { r: Number(m[1]), g: Number(m[2]), b: Number(m[3]) };
+      }
+
       function boxesOverlap(a, b, pad = 10) {
         return !(
           a.x + a.w + pad <= b.x ||
@@ -273,9 +291,15 @@
         // Clear
         container.replaceChildren();
 
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
+        const vw = document.documentElement.clientWidth;
+        const vh = Math.max(
+          document.documentElement.scrollHeight,
+          document.body.scrollHeight,
+          window.innerHeight
+        );
         if (vw <= 0 || vh <= 0) return;
+
+        container.style.height = `${vh}px`;
 
         const area = vw * vh;
         const coverageArea = area * Math.min(1, Math.max(0, COVERAGE));
@@ -294,7 +318,8 @@
 
           const size = randBiased(minSize, maxSize, SIZE_BIAS);
           const x = rand(0, vw - size);
-          const y = rand(0, vh - size);
+          const yT = 1 - Math.pow(Math.random(), Math.max(0.0001, Y_BIAS));
+          const y = yT * (vh - size);
 
           // Conservative box (rotation can increase bounds; we pad extra)
           const box = { x, y, w: size, h: size };
@@ -316,9 +341,17 @@
           el.style.height = `${size}px`;
           el.style.left = `${x}px`;
           el.style.top = `${y}px`;
-          el.style.opacity = `${OPACITY}`;
+          const opacityDepth = Math.pow(Math.min(1, Math.max(0, yT)), OPACITY_POWER);
+          const opacity = OPACITY_MIN + (OPACITY_MAX - OPACITY_MIN) * opacityDepth;
+          el.style.opacity = `${opacity}`;
           el.style.setProperty("--bg-icon-url", `url("${pick(ICONS)}")`);
-          el.style.setProperty("--bg-tint", mixColor(TINT_A, TINT_B, Math.random()));
+          const tint = mixColor(TINT_A, TINT_B, Math.random());
+          el.style.setProperty("--bg-tint", tint);
+          const { r, g, b } = rgbParts(tint);
+          const depth = Math.pow(Math.min(1, Math.max(0, yT)), GLOW_POWER);
+          const glowBlur = GLOW_BLUR_MIN_PX + (GLOW_BLUR_MAX_PX - GLOW_BLUR_MIN_PX) * depth;
+          const glowAlpha = GLOW_ALPHA_MAX * depth;
+          el.style.filter = `drop-shadow(0 0 ${glowBlur}px rgba(${r}, ${g}, ${b}, ${glowAlpha}))`;
           el.style.transform = `rotate(${rand(-ROTATION_RANGE_DEG, ROTATION_RANGE_DEG)}deg)`;
           container.appendChild(el);
         }
@@ -332,6 +365,7 @@
 
       layout();
       window.addEventListener("resize", scheduleLayout, { passive: true });
+      window.addEventListener("load", scheduleLayout, { passive: true });
     })();
   </script>
 </body>

@@ -42,20 +42,37 @@ canvas {
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(0, 255, 255, 0.06), transparent 28%),
-    linear-gradient(180deg, #01201f 0%, #010c08 100%);
+  background: #010c08;
   color: var(--text);
   line-height: 1.6;
   min-height: 100dvh;
+  position: relative;
+}
+
+/* Base gradient layer (below icons + content) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(0, 255, 255, 0.06), transparent 28%),
+    linear-gradient(180deg, #01201f 0%, #010c08 100%);
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 /* Background icons (remove if not desired) */
 .bg-icons {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   overflow: hidden;
 }
 
@@ -80,7 +97,7 @@ body {
   margin: 0 auto;
   padding: 24px 0 72px;
   position: relative;
-  z-index: 1;
+  z-index: 0;
 }
 
 .site-header {
