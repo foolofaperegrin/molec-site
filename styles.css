@@ -14,6 +14,8 @@
   --muted: #cdd6cb;
   --green: #a4ff9d;
   --cyan: #135232;
+  --bg-icon-tint-a: #020f25;
+  --bg-icon-tint-b: #26553e;
   --line: rgba(255, 255, 255, 0.08);
   --max-width: 920px;
   --success: #00ff6e;
@@ -21,6 +23,20 @@
 
 * {
   box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+video,
+svg,
+canvas {
+  max-width: 100%;
 }
 
 body {
@@ -31,12 +47,40 @@ body {
     linear-gradient(180deg, #01201f 0%, #010c08 100%);
   color: var(--text);
   line-height: 1.6;
+  min-height: 100dvh;
 }
+
+/* Background icons (remove if not desired) */
+.bg-icons {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-icon {
+  position: absolute;
+  filter: blur(0.2px);
+  transform-origin: center;
+  background-color: var(--bg-tint, rgba(255, 255, 255, 0.2));
+  -webkit-mask-image: var(--bg-icon-url);
+  mask-image: var(--bg-icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
 
 .page {
   width: min(calc(100% - 32px), var(--max-width));
   margin: 0 auto;
   padding: 24px 0 72px;
+  position: relative;
+  z-index: 1;
 }
 
 .site-header {
@@ -149,12 +193,21 @@ h2 {
   border-top: 1px solid var(--line);
 }
 
-.feature strong {
-  display: block;
+.feature-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: "RenogareSoft-Regular", sans-serif;
   margin-bottom: 4px;
   color: #f3974c;
   font-size: 16px;
+}
+
+.feature-icon {
+  height: 1.1em;
+  width: auto;
+  flex: 0 0 auto;
+  display: block;
 }
 
 .feature p {
@@ -168,12 +221,94 @@ h2 {
   padding-top: 18px;
   color: #30ac55;
   border-top: 1px solid var(--line);
+  scroll-margin-top: 18px;
 }
 
 .follow p {
   margin: 0 0 16px;
   color: var(--muted);
   font-size: 16px;
+}
+
+.mailing-kicker {
+  margin: 14px 0 10px;
+  font-family: "RenogareSoft-Regular", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  color: #f3974c;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mailing-kicker-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.mailing-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.survey-cta {
+  margin: 14px 0 16px;
+  padding: 14px 14px 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(243, 151, 76, 0.22);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(243, 151, 76, 0.10), transparent 48%),
+    rgba(255, 255, 255, 0.03);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(0, 0, 0, 0.15) inset;
+}
+
+.survey-cta-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.survey-cta-icon {
+  width: 1.2em;
+  height: 1.2em;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.survey-cta-kicker {
+  font-family: "RenogareSoft-Regular", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  color: #f3974c;
+}
+
+.survey-cta-body {
+  margin: 0 0 12px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.survey-button {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(243, 151, 76, 0.24);
+  background: rgba(243, 151, 76, 0.12);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.survey-button:hover {
+  filter: brightness(1.08);
 }
 
 .signup-form {
@@ -258,6 +393,7 @@ button:hover {
 
   .hero video {
     aspect-ratio: 4 / 5;
+    border-radius: 26px;
   }
 
   .signup-form {
