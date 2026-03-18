@@ -14,8 +14,9 @@
   --muted: #cdd6cb;
   --green: #a4ff9d;
   --cyan: #135232;
-  --bg-icon-tint-a: #020f25;
-  --bg-icon-tint-b: #26553e;
+  --bg-icon-tint-a: #34e785;
+  --bg-icon-tint-b: #00fff2;
+  --bottom-fruiting-tint: #f3974c;
   --line: rgba(255, 255, 255, 0.08);
   --max-width: 920px;
   --success: #00ff6e;
@@ -74,6 +75,32 @@ body::after {
   pointer-events: none;
   z-index: -1;
   overflow: hidden;
+  will-change: transform;
+}
+
+.bottom-fruiting {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bottom-fruiting-tile {
+  position: absolute;
+  filter: blur(0.2px);
+  transform-origin: center;
+  background-color: var(--bg-tint, rgba(255, 255, 255, 0.2));
+  -webkit-mask-image: var(--bg-icon-url);
+  mask-image: var(--bg-icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .bg-icon {
