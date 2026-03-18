@@ -16,6 +16,8 @@
   --cyan: #135232;
   --bg-icon-tint-a: #34e785;
   --bg-icon-tint-b: #00fff2;
+  --bg-tile-opacity: 0.08;
+  --bg-tile-y-power: 4.1;
   --line: rgba(255, 255, 255, 0.08);
   --max-width: 920px;
   --success: #00ff6e;
@@ -52,45 +54,35 @@ body {
 /* Base gradient layer (below icons + content) */
 body::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   background:
     radial-gradient(circle at top, rgba(0, 255, 255, 0.06), transparent 28%),
     linear-gradient(180deg, #01201f 0%, #010c08 100%);
   z-index: -2;
+  pointer-events: none;
 }
 
 body::after {
   content: "";
-  display: table;
-  clear: both;
-}
-
-/* Background icons (remove if not desired) */
-.bg-icons {
   position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  pointer-events: none;
+  inset: 0;
+  background:
+    var(--bg-tile-composite, url("media/tile_1.png"));
+  background-repeat: repeat;
+  /* JS will set this when composing; fallback is intrinsic tile_1 size */
+  background-size: var(--bg-tile-composite-size, auto);
+  background-position: 0 0;
+  opacity: var(--bg-tile-opacity);
   z-index: -1;
-  overflow: hidden;
-}
-
-.bg-icon {
-  position: absolute;
-  filter: blur(0.2px);
-  transform-origin: center;
-  background-color: var(--bg-tint, rgba(255, 255, 255, 0.2));
-  -webkit-mask-image: var(--bg-icon-url);
-  mask-image: var(--bg-icon-url);
+  pointer-events: none;
+  -webkit-mask-image: var(--bg-tile-mask, linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%));
+  mask-image: var(--bg-tile-mask, linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%));
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
 }
-
 
 .page {
   width: min(calc(100% - 32px), var(--max-width));
