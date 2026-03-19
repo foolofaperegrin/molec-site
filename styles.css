@@ -101,13 +101,17 @@ body::after {
 .hero {
   position: relative;
   margin-bottom: 36px;
-  overflow: visible;
+  overflow: hidden;
+  aspect-ratio: 16 / 7;
+  border-radius: 50px;
 }
 
 .hero video {
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 7;
+  height: 100%;
+  display: block;
   object-fit: cover;
   filter: brightness(0.82) saturate(1.1) contrast(1.02);
   border-radius: 50px;
@@ -490,7 +494,10 @@ button {
   }
 
   .hero video {
-    aspect-ratio: 4 / 5;
+    border-radius: 26px;
+  }
+
+  .hero {
     border-radius: 26px;
   }
 
