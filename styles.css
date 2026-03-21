@@ -104,11 +104,14 @@ body::after {
   overflow: hidden;
   aspect-ratio: 16 / 7;
   border-radius: 50px;
+  /* Stacking context so overlay stays above <video> (video often paints on top otherwise). */
+  isolation: isolate;
 }
 
 .hero video {
   position: absolute;
   inset: 0;
+  z-index: 0;
   width: 100%;
   height: 100%;
   display: block;
@@ -117,6 +120,35 @@ body::after {
   border-radius: 50px;
   border: 3px solid rgba(255,255,255,0.06);
   box-shadow: 0 20px 50px rgba(2, 20, 34, 0.28);
+}
+
+.hero-footage-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 22px 16px 16px;
+  text-align: center;
+  font-family: "RenogareSoft-Regular", Arial, sans-serif;
+  font-size: clamp(12px, 3vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f3974c;
+  -webkit-text-fill-color: #f3974c;
+  /* Readable strip over video */
+  background: linear-gradient(
+    to top,
+    rgba(5, 10, 11, 0.82) 0%,
+    rgba(5, 10, 11, 0.45) 55%,
+    transparent 100%
+  );
+  text-shadow:
+    0 0 10px rgba(0, 0, 0, 0.95),
+    0 1px 3px rgba(0, 0, 0, 1);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-overlay {
