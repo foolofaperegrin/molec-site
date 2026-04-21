@@ -461,6 +461,50 @@ button {
   text-decoration: none;
 }
 
+/* Footer icon slots: reset global <button> styles */
+button.social-link {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.social-link--tooltip {
+  position: relative;
+}
+
+.social-link--tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(4, 32, 36, 0.96);
+  color: #c8e8df;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
+  z-index: 2;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.social-link--tooltip:is(:hover, :focus-visible)::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
 .social-link:hover {
   border-color: rgba(0, 255, 255, 0.22);
   background: rgba(0, 255, 255, 0.06);
