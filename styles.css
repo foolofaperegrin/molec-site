@@ -106,6 +106,8 @@ body::after {
   border-radius: 50px;
   /* Stacking context so overlay stays above <video> (video often paints on top otherwise). */
   isolation: isolate;
+  /* Visible before deferred video source loads (avoids empty flash on slow links). */
+  background: #031a18;
 }
 
 .hero video {
@@ -120,6 +122,14 @@ body::after {
   border-radius: 50px;
   border: 3px solid rgba(255,255,255,0.06);
   box-shadow: 0 20px 50px rgba(2, 20, 34, 0.28);
+}
+
+@media (max-width: 768px) {
+  .hero video {
+    /* Full CSS filter stack on decoded video is costly on many phones. */
+    filter: none;
+    box-shadow: 0 12px 28px rgba(2, 20, 34, 0.22);
+  }
 }
 
 .hero-footage-label {

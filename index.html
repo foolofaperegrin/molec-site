@@ -4,23 +4,22 @@
   <title>MOLEC</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script async src="https://f.convertkit.com/ckjs/ck.5.js"></script>
-
-
   <link rel="stylesheet" href="styles.css">
 </head>
-
-  <script data-goatcounter="https://darkfieldgames.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-  
-  
 <body>
   <div class="page">
    
 
     <section class="hero">
-      <video autoplay muted loop playsinline preload="metadata">
-        <source src="media/verbs.mp4" type="video/mp4">
+      <video
+        id="hero-video"
+        class="hero-video"
+        muted
+        loop
+        playsinline
+        preload="none"
+        fetchpriority="low"
+      >
         Your browser does not support the video tag.
       </video>
       <p class="hero-footage-label">Pre-alpha footage</p>
@@ -194,16 +193,78 @@
     </footer>
   </div>
 
+  <script defer src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+  <script
+    data-goatcounter="https://darkfieldgames.goatcounter.com/count"
+    async
+    src="https://gc.zgo.at/count.js"
+  ></script>
   <script>
+    // Hero video: no <source> in HTML so the first paint is not blocked by a
+    // large MP4 fetch. Source is attached after DOM + layout are ready.
+    (function () {
+      const video = document.getElementById("hero-video");
+      if (!video) return;
+
+      function attachSource() {
+        if (video.dataset.srcAttached) return;
+        video.dataset.srcAttached = "1";
+        const source = document.createElement("source");
+        source.src = "media/verbs.mp4";
+        source.type = "video/mp4";
+        video.appendChild(source);
+        video.load();
+        const playAttempt = video.play();
+        if (playAttempt && typeof playAttempt.catch === "function") {
+          playAttempt.catch(function () {});
+        }
+      }
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      function afterDomPaint(cb) {
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", function onDcl() {
+            document.removeEventListener("DOMContentLoaded", onDcl);
+            requestAnimationFrame(function () {
+              requestAnimationFrame(cb);
+            });
+          });
+        } else {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(cb);
+          });
+        }
+      }
+
+      afterDomPaint(function () {
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(
+            function () {
+              attachSource();
+            },
+            { timeout: 1200 }
+          );
+        } else {
+          window.setTimeout(attachSource, 50);
+        }
+      });
+    })();
+
     const signupForm = document.getElementById("signup-form");
     const successMessage = document.getElementById("form-success");
 
-    signupForm.addEventListener("submit", function () {
-      successMessage.style.display = "block";
-    });
+    if (signupForm && successMessage) {
+      signupForm.addEventListener("submit", function () {
+        successMessage.style.display = "block";
+      });
+    }
 
     // If linked via #mailing-list or #signup-form, focus the email field.
     (function () {
+      if (!signupForm) return;
       const hash = window.location.hash;
       if (hash !== "#mailing-list" && hash !== "#signup-form") return;
       const emailInput = signupForm.querySelector('input[type="email"]');
@@ -231,9 +292,15 @@
       root.style.setProperty("--bg-tile-mask", gradient);
     })();
 
-    // Compose the 4 tiles into one repeating 
+    // Compose the 4 tiles into one repeating texture (desktop).
+    // On narrow viewports this is skipped: ~4.5MB fewer requests and no heavy
+    // canvas.toBlob() on the main thread (often freezes low-end phones).
     (function () {
       const root = document.documentElement;
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
+
       const sources = [
         "media/tile_1.png",
         "media/tile_2.png",
@@ -250,37 +317,55 @@
         });
       }
 
-      Promise.all(sources.map(load))
-        .then((imgs) => {
-          // Assume all tiles same size; if not, use the smallest to avoid seams.
-          const w = Math.min(...imgs.map((i) => i.naturalWidth || i.width));
-          const h = Math.min(...imgs.map((i) => i.naturalHeight || i.height));
-          if (!w || !h) return;
+      function compose() {
+        Promise.all(sources.map(load))
+          .then((imgs) => {
+            const w = Math.min(...imgs.map((i) => i.naturalWidth || i.width));
+            const h = Math.min(...imgs.map((i) => i.naturalHeight || i.height));
+            if (!w || !h) return;
 
-          const c = document.createElement("canvas");
-          c.width = w * 2;
-          c.height = h * 2;
-          const ctx = c.getContext("2d", { alpha: true });
-          ctx.clearRect(0, 0, c.width, c.height);
+            const c = document.createElement("canvas");
+            c.width = w * 2;
+            c.height = h * 2;
+            const ctx = c.getContext("2d", { alpha: true });
+            ctx.clearRect(0, 0, c.width, c.height);
 
-          // 2x2 layout:
-          // [tile_1 tile_2]
-          // [tile_3 tile_4]
-          ctx.drawImage(imgs[0], 0, 0, w, h);
-          ctx.drawImage(imgs[1], w, 0, w, h);
-          ctx.drawImage(imgs[2], 0, h, w, h);
-          ctx.drawImage(imgs[3], w, h, w, h);
+            ctx.drawImage(imgs[0], 0, 0, w, h);
+            ctx.drawImage(imgs[1], w, 0, w, h);
+            ctx.drawImage(imgs[2], 0, h, w, h);
+            ctx.drawImage(imgs[3], w, h, w, h);
 
-          c.toBlob((blob) => {
-            if (!blob) return;
-            const url = URL.createObjectURL(blob);
-            root.style.setProperty("--bg-tile-composite", `url("${url}")`);
-            root.style.setProperty("--bg-tile-composite-size", `${c.width}px ${c.height}px`);
-          }, "image/png");
-        })
-        .catch(() => {
-          // Fallback: keep tile_1
-        });
+            c.toBlob((blob) => {
+              if (!blob) return;
+              const url = URL.createObjectURL(blob);
+              root.style.setProperty("--bg-tile-composite", `url("${url}")`);
+              root.style.setProperty(
+                "--bg-tile-composite-size",
+                `${c.width}px ${c.height}px`
+              );
+            }, "image/png");
+          })
+          .catch(() => {});
+      }
+
+      function scheduleCompose() {
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(
+            function () {
+              compose();
+            },
+            { timeout: 4000 }
+          );
+        } else {
+          window.setTimeout(compose, 300);
+        }
+      }
+
+      if (document.readyState === "complete") {
+        scheduleCompose();
+      } else {
+        window.addEventListener("load", scheduleCompose);
+      }
     })();
   </script>
 </body>
