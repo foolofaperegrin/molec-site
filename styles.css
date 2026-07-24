@@ -246,9 +246,9 @@ h2 {
   width: min(720px, 92vw);
   height: auto;
   filter:
-    drop-shadow(0 0 5px rgba(0, 255, 255, 0.85))
-    drop-shadow(0 0 10px rgba(0, 255, 255, 0.7))
-    drop-shadow(0 0 18px rgba(0, 255, 255, 0.5));
+    drop-shadow(0 0 1px rgba(80, 255, 200, 0.45))
+    drop-shadow(0 0 3px rgba(52, 231, 180, 0.28))
+    drop-shadow(0 0 6px rgba(40, 220, 160, 0.16));
 }
 
 .features {
