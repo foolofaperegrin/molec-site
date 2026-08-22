@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>MOLEC</title>
@@ -39,7 +39,7 @@
     <main>
       <section class="intro">
         <p>
-          A modular creature-building ecosystem-survival game set in a strange aquatic world of drifting mechanical life.
+          Assemble a unique sea creature from dozens of modular parts. Explore, evolve and survive in a vast & hostile alien ocean
         </p>
       </section>
 
@@ -48,39 +48,40 @@
           Begin as a small larval hatchling, collect parts and resources, and grow piece-by-piece, chain-by-chain into something larger, stranger, and more capable.
         </p>
         <p>
-          In Molec, creatures are assembled from modular parts that can be chained together into limbs, tools, armour, and weapons. Different configurations create different movement profiles, abilities, and survival strategies.
+          In Molec, creatures are assembled from modular parts that can be chained together into limbs, tools, armour, and weapons. Different configurations create different movements, abilities, and survival strategies.
         </p>
       </section>
 
       <section>
         <div class="features">
+        <div class="feature">
+            <strong class="feature-title">
+              <img class="feature-icon" src="media/icon_rotator.png" alt="">
+              Adapt & Evolve
+            </strong>
+            <p>In Molec, your creature is shaped by what you do - seek out light rays, and you'll sprout photosynthetic parts; take heat damage, and you might evolve resistances; fight other creatures, and you'll become more deadly. Driven by a system of randomised mutations, no two playthroughs are the same!</p>
+          </div>
           <div class="feature">
             <strong class="feature-title">
               <img class="feature-icon" src="media/icon_interiority.png" alt="">
               Build your beastie
             </strong>
-            <p>Reconfigure collected parts into new forms at any time.</p>
+            <p>With each generation, use a powerful creature editor to directly guide the body plan, appearance and capabilities of your creature. Explore an ocean of creatures made by other players, and share your own with the world!</p>
           </div>
-          <div class="feature">
-            <strong class="feature-title">
-              <img class="feature-icon" src="media/icon_rotator.png" alt="">
-              Emergent movement
-            </strong>
-            <p>Motions and actions come from chained parts interacting together.</p>
-          </div>
+          
           <div class="feature">
             <strong class="feature-title">
               <img class="feature-icon" src="media/icon_shelled.png" alt="">
-              Survive and adapt
+              Explore & Survive
             </strong>
-            <p>Deal with fearsome predators, troublesome prey, environmental hazards, and shifting build possibilities.</p>
+            <p>A vast ocean awaits, where you will contend with fearsome predators, troublesome prey, environmental hazards, strange artifacts and shifting possibilities.</p>
           </div>
           <div class="feature">
             <strong class="feature-title">
               <img class="feature-icon" src="media/icon_grabguts.png" alt="">
               Grow into power
             </strong>
-            <p>Start fragile, then become intricate, dangerous, and otherworldly.</p>
+            <p>Take down increasingly challenging enemies and explore different biomes to earn new parts.</p>
           </div>
         </div>
       </section>
@@ -88,13 +89,13 @@
       <section class="follow" id="mailing-list">
         <strong>Follow development</strong>
         <p>
-          Molec is currently in pre-alpha development. Please consider taking our survey to help us shape the game, and joining our mailing list for future updates.
+          Molec is currently in pre-alpha development. At present, our primary channel is our discord - join today to follow development!
         </p>
 
         <div class="survey-cta">
           <div class="survey-cta-head">
             <img class="survey-cta-icon" src="media/discord.png" alt="">
-            <div class="survey-cta-kicker">Discord Launched</div>
+            <div class="survey-cta-kicker">Discord</div>
           </div>
           <p class="survey-cta-body">
             Join the server for dev updates, community chat, and playtesting announcements.
@@ -366,6 +367,298 @@
       } else {
         window.addEventListener("load", scheduleCompose);
       }
+    })();
+
+    // Hover bubbles: one overlay canvas, pooled circles, PC / fine pointer only.
+    // Tune in :root (--hover-particles-*). Circles are a pre-baked sprite blit
+    // (cheaper than hexagons or per-frame arc()).
+    (function () {
+      const TARGET_SELECTOR = "button, .survey-button, .social-link";
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+      const root = document.documentElement;
+      const pool = [];
+      const live = [];
+      let hovered = null;
+      let canvas = null;
+      let ctx = null;
+      let spriteA = null;
+      let spriteB = null;
+      let spriteSize = 32;
+      let dpr = 1;
+      let raf = 0;
+      let lastTs = 0;
+      let spawnAcc = 0;
+      let cssW = 0;
+      let cssH = 0;
+      let cfg = null;
+      let colorProbe = null;
+      let colorProbeCtx = null;
+
+      function num(styles, name, fallback) {
+        const v = Number(styles.getPropertyValue(name).trim());
+        return Number.isFinite(v) ? v : fallback;
+      }
+
+      function parseCssColor(varName, fallbackRgb) {
+        try {
+          if (!colorProbe) {
+            colorProbe = document.createElement("span");
+            colorProbe.setAttribute("aria-hidden", "true");
+            colorProbe.style.cssText =
+              "position:fixed;left:0;top:0;width:0;height:0;opacity:0;pointer-events:none;";
+            document.body.appendChild(colorProbe);
+          }
+          colorProbe.style.color =
+            "rgb(" + fallbackRgb[0] + "," + fallbackRgb[1] + "," + fallbackRgb[2] + ")";
+          colorProbe.style.color = "var(" + varName + ")";
+          const computed = getComputedStyle(colorProbe).color;
+          const m = computed.match(
+            /(\d+(?:\.\d+)?)[,\s]+(\d+(?:\.\d+)?)[,\s]+(\d+(?:\.\d+)?)/
+          );
+          if (m) {
+            return [Number(m[1]), Number(m[2]), Number(m[3])];
+          }
+        } catch (err) {}
+
+        try {
+          if (!colorProbeCtx) {
+            const probeCanvas = document.createElement("canvas");
+            probeCanvas.width = 1;
+            probeCanvas.height = 1;
+            colorProbeCtx = probeCanvas.getContext("2d", { willReadFrequently: true });
+          }
+          const styles = getComputedStyle(root);
+          const raw = styles.getPropertyValue(varName).trim();
+          const g = colorProbeCtx;
+          g.fillStyle =
+            "rgb(" + fallbackRgb[0] + "," + fallbackRgb[1] + "," + fallbackRgb[2] + ")";
+          if (raw) g.fillStyle = raw;
+          g.clearRect(0, 0, 1, 1);
+          g.fillRect(0, 0, 1, 1);
+          const d = g.getImageData(0, 0, 1, 1).data;
+          return [d[0], d[1], d[2]];
+        } catch (err) {
+          return fallbackRgb;
+        }
+      }
+
+      function readConfig() {
+        const styles = getComputedStyle(root);
+        if (num(styles, "--hover-particles-enabled", 1) <= 0) return null;
+        return {
+          max: Math.max(1, Math.floor(num(styles, "--hover-particles-max", 48))),
+          spawnPerSec: Math.max(0, num(styles, "--hover-particles-spawn-per-sec", 11)),
+          sizeMin: num(styles, "--hover-particles-size-min", 2.2),
+          sizeMax: num(styles, "--hover-particles-size-max", 5.5),
+          lifeMin: num(styles, "--hover-particles-life-min", 0.75),
+          lifeMax: num(styles, "--hover-particles-life-max", 1.45),
+          rise: num(styles, "--hover-particles-rise", 26),
+          drift: num(styles, "--hover-particles-drift", 10),
+          wobble: num(styles, "--hover-particles-wobble", 12),
+          opacity: num(styles, "--hover-particles-opacity", 0.5),
+          colorA: parseCssColor("--hover-particles-color-a", [186, 255, 214]),
+          colorB: parseCssColor("--hover-particles-color-b", [168, 228, 255]),
+        };
+      }
+
+      function makeSprite(rgb) {
+        const r = Math.round(Math.min(255, Math.max(0, Number(rgb[0]) || 0)));
+        const gch = Math.round(Math.min(255, Math.max(0, Number(rgb[1]) || 0)));
+        const b = Math.round(Math.min(255, Math.max(0, Number(rgb[2]) || 0)));
+        const s = spriteSize;
+        const c = document.createElement("canvas");
+        c.width = s;
+        c.height = s;
+        const g = c.getContext("2d");
+        const cx = s * 0.5;
+        const cy = s * 0.5;
+        const rad = s * 0.48;
+        const grad = g.createRadialGradient(cx, cy, 0, cx, cy, rad);
+        grad.addColorStop(0, "rgba(" + r + "," + gch + "," + b + ",0.95)");
+        grad.addColorStop(0.4, "rgba(" + r + "," + gch + "," + b + ",0.4)");
+        grad.addColorStop(1, "rgba(" + r + "," + gch + "," + b + ",0)");
+        g.fillStyle = grad;
+        g.beginPath();
+        g.arc(cx, cy, rad, 0, Math.PI * 2);
+        g.fill();
+        return c;
+      }
+
+      function ensureCanvas() {
+        if (canvas) return;
+        canvas = document.createElement("canvas");
+        canvas.className = "hover-particles-canvas";
+        canvas.setAttribute("aria-hidden", "true");
+        canvas.style.cssText =
+          "position:fixed;inset:0;width:100%;height:100%;max-width:none;pointer-events:none;z-index:40;";
+        document.body.appendChild(canvas);
+        ctx = canvas.getContext("2d", { alpha: true });
+        resize();
+      }
+
+      function resize() {
+        if (!canvas || !ctx) return;
+        cssW = window.innerWidth;
+        cssH = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+        canvas.width = Math.max(1, Math.floor(cssW * dpr));
+        canvas.height = Math.max(1, Math.floor(cssH * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function alloc() {
+        return pool.pop() || {
+          x: 0,
+          y: 0,
+          vx: 0,
+          vy: 0,
+          size: 3,
+          life: 1,
+          maxLife: 1,
+          phase: 0,
+          wobble: 0,
+          sprite: null,
+        };
+      }
+
+      function closestTarget(node) {
+        if (!node) return null;
+        if (node.nodeType !== 1) node = node.parentElement;
+        return node && node.closest ? node.closest(TARGET_SELECTOR) : null;
+      }
+
+      function spawnFrom(rect) {
+        if (!cfg || live.length >= cfg.max) return;
+        const p = alloc();
+        const w = rect.width;
+        const h = rect.height;
+        const roll = Math.random();
+        if (roll < 0.55) {
+          p.x = rect.left + Math.random() * w;
+          p.y = rect.top + Math.random() * Math.min(10, h * 0.2);
+        } else if (roll < 0.8) {
+          p.x = rect.left + (Math.random() < 0.5 ? 0 : w);
+          p.y = rect.top + Math.random() * h * 0.65;
+        } else {
+          p.x = rect.left + Math.random() * w;
+          p.y = rect.top + Math.random() * h * 0.55;
+        }
+        p.x += window.scrollX;
+        p.y += window.scrollY;
+        p.vx = (Math.random() - 0.5) * cfg.drift;
+        p.vy = -(cfg.rise * (0.7 + Math.random() * 0.6));
+        p.size = cfg.sizeMin + Math.random() * (cfg.sizeMax - cfg.sizeMin);
+        p.maxLife = cfg.lifeMin + Math.random() * (cfg.lifeMax - cfg.lifeMin);
+        p.life = p.maxLife;
+        p.phase = Math.random() * Math.PI * 2;
+        p.wobble = cfg.wobble * (0.5 + Math.random());
+        p.sprite = Math.random() < 0.5 ? spriteA : spriteB;
+        live.push(p);
+      }
+
+      function tick(ts) {
+        if (!lastTs) lastTs = ts;
+        const dt = Math.min(0.05, (ts - lastTs) / 1000);
+        lastTs = ts;
+
+        if (hovered && cfg) {
+          spawnAcc += cfg.spawnPerSec * dt;
+          const rect = hovered.getBoundingClientRect();
+          while (spawnAcc >= 1) {
+            spawnAcc -= 1;
+            spawnFrom(rect);
+          }
+        } else {
+          spawnAcc = 0;
+        }
+
+        const sx = window.scrollX;
+        const sy = window.scrollY;
+        const opacity = cfg ? cfg.opacity : 0.5;
+
+        if (ctx) {
+          ctx.clearRect(0, 0, cssW, cssH);
+          for (let i = live.length - 1; i >= 0; i--) {
+            const p = live[i];
+            p.life -= dt;
+            if (p.life <= 0) {
+              live[i] = live[live.length - 1];
+              live.pop();
+              pool.push(p);
+              continue;
+            }
+            p.phase += dt * 2.4;
+            p.x += (p.vx + Math.sin(p.phase) * p.wobble) * dt;
+            p.y += p.vy * dt;
+
+            const t = p.life / p.maxLife;
+            const fade = t < 0.25 ? t / 0.25 : 1;
+            const drawX = p.x - sx;
+            const drawY = p.y - sy;
+            if (drawX < -12 || drawY < -12 || drawX > cssW + 12 || drawY > cssH + 12) continue;
+
+            ctx.globalAlpha = opacity * fade;
+            ctx.drawImage(p.sprite, drawX - p.size, drawY - p.size, p.size * 2, p.size * 2);
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        if (live.length || hovered) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = 0;
+          lastTs = 0;
+          if (ctx) ctx.clearRect(0, 0, cssW, cssH);
+        }
+      }
+
+      function ensureLoop() {
+        if (raf) return;
+        lastTs = 0;
+        raf = requestAnimationFrame(tick);
+      }
+
+      function onOver(e) {
+        if (e.pointerType && e.pointerType !== "mouse") return;
+        const el = closestTarget(e.target);
+        if (!el || el === hovered) return;
+        try {
+          cfg = readConfig();
+          if (!cfg) {
+            hovered = null;
+            return;
+          }
+          spriteA = makeSprite(cfg.colorA);
+          spriteB = makeSprite(cfg.colorB);
+          ensureCanvas();
+          hovered = el;
+          ensureLoop();
+        } catch (err) {
+          hovered = null;
+        }
+      }
+
+      function onOut(e) {
+        if (!hovered) return;
+        if (e.relatedTarget && hovered.contains(e.relatedTarget)) return;
+        hovered = closestTarget(e.relatedTarget);
+      }
+
+      document.addEventListener("pointerover", onOver, { passive: true });
+      document.addEventListener("pointerout", onOut, { passive: true });
+      window.addEventListener("resize", resize, { passive: true });
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden && raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+          lastTs = 0;
+        } else if (!document.hidden && (live.length || hovered)) {
+          ensureLoop();
+        }
+      });
     })();
   </script>
 </body>
