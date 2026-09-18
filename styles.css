@@ -18,7 +18,7 @@
   --bg-icon-tint-a: #ff84a3;
   --bg-icon-tint-b: #00fff2;
   --bg-tile-opacity: 0.06;
-  --bg-tile-y-power: 2.1;
+  --bg-tile-y-power: 0.7;
   --social-tint: var(--cyan);
   --line: rgba(255, 255, 255, 0.08);
   --max-width: 1100px;
