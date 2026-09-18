@@ -8,24 +8,6 @@
 </head>
 <body>
   <div class="page">
-   
-
-    <section class="hero">
-      <video
-        id="hero-video"
-        class="hero-video"
-        muted
-        loop
-        playsinline
-        preload="none"
-        fetchpriority="low"
-      >
-        Your browser does not support the video tag.
-      </video>
-      <p class="hero-footage-label">Pre-alpha footage</p>
-    </section>
-
-    
     <header class="site-header">
       <img
         class="title-image"
@@ -34,6 +16,38 @@
         decoding="async"
       >
     </header>
+
+    <div class="hero-band">
+      <section class="hero">
+        <video
+          id="hero-video"
+          class="hero-video"
+          muted
+          loop
+          playsinline
+          preload="none"
+          fetchpriority="low"
+        >
+          Your browser does not support the video tag.
+        </video>
+        <p class="hero-footage-label">Pre-alpha footage</p>
+      </section>
+
+      <div class="hero-cta">
+        <a
+          class="hero-cta-row"
+          href="https://discord.gg/A6KTYr9Yh9"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="hero-cta-icon-slot" aria-hidden="true">
+            <img class="hero-cta-icon" src="media/discord.png" alt="">
+          </span>
+          <span class="hero-cta-button">Join the Discord</span>
+        </a>
+        <p class="hero-cta-note">Dev updates, community chat, and playtesting</p>
+      </div>
+    </div>
 
 
     <main>
@@ -52,63 +66,93 @@
         </p>
       </section>
 
-      <section>
-        <div class="features">
-        <div class="feature">
-            <strong class="feature-title">
-              <img class="feature-icon" src="media/icon_rotator.png" alt="">
-              Adapt & Evolve
-            </strong>
-            <p>In Molec, your creature is shaped by what you do - seek out light rays, and you'll sprout photosynthetic parts; take heat damage, and you might evolve resistances; fight other creatures, and you'll become more deadly. Driven by a system of randomised mutations, no two playthroughs are the same!</p>
+      <section class="feature-rows" aria-label="Features">
+        <article class="feature-row">
+          <div class="feature-row-inner">
+            <div class="feature-row-copy">
+              <strong class="feature-title">
+                <img class="feature-icon" src="media/icon_rotator.png" alt="">
+                Adapt & Evolve
+              </strong>
+              <p>In Molec, your creature is shaped by what you do - seek out light rays, and you'll sprout photosynthetic parts; take heat damage, and you might evolve resistances; fight other creatures, and you'll become more deadly. Driven by a system of randomised mutations, no two playthroughs are the same!</p>
+            </div>
+            <div class="feature-row-media">
+              <img
+                src="media/caps/adaptevolve.png"
+                alt="A glowing modular creature with leafy photosynthetic parts"
+                decoding="async"
+                loading="lazy"
+              >
+            </div>
           </div>
-          <div class="feature">
-            <strong class="feature-title">
-              <img class="feature-icon" src="media/icon_interiority.png" alt="">
-              Build your beastie
-            </strong>
-            <p>With each generation, use a powerful creature editor to directly guide the body plan, appearance and capabilities of your creature. Explore an ocean of creatures made by other players, and share your own with the world!</p>
+        </article>
+
+        <article class="feature-row feature-row--reverse">
+          <div class="feature-row-inner">
+            <div class="feature-row-copy">
+              <strong class="feature-title">
+                <img class="feature-icon" src="media/icon_interiority.png" alt="">
+                Build your beastie
+              </strong>
+              <p>With each generation, use a powerful creature editor to directly guide the body plan, appearance and capabilities of your creature. Explore an ocean of creatures made by other players, and share your own with the world!</p>
+            </div>
+            <div class="feature-row-media">
+              <img
+                src="media/caps/build.png"
+                alt="A creature in the Molec editor, surrounded by part controls"
+                decoding="async"
+                loading="lazy"
+              >
+            </div>
           </div>
-          
-          <div class="feature">
-            <strong class="feature-title">
-              <img class="feature-icon" src="media/icon_shelled.png" alt="">
-              Explore & Survive
-            </strong>
-            <p>A vast ocean awaits, where you will contend with fearsome predators, troublesome prey, environmental hazards, strange artifacts and shifting possibilities.</p>
+        </article>
+
+        <article class="feature-row">
+          <div class="feature-row-inner">
+            <div class="feature-row-copy">
+              <strong class="feature-title">
+                <img class="feature-icon" src="media/icon_shelled.png" alt="">
+                Explore & Survive
+              </strong>
+              <p>A vast ocean awaits, where you will contend with fearsome predators, troublesome prey, environmental hazards, strange artifacts and shifting possibilities.</p>
+            </div>
+            <div class="feature-row-media">
+              <img
+                src="media/caps/exploresurvive.png"
+                alt="A creature hunting glowing prey in a dark ocean"
+                decoding="async"
+                loading="lazy"
+              >
+            </div>
           </div>
-          <div class="feature">
-            <strong class="feature-title">
-              <img class="feature-icon" src="media/icon_grabguts.png" alt="">
-              Grow into power
-            </strong>
-            <p>Take down increasingly challenging enemies and explore different biomes to earn new parts.</p>
+        </article>
+
+        <article class="feature-row feature-row--reverse">
+          <div class="feature-row-inner">
+            <div class="feature-row-copy">
+              <strong class="feature-title">
+                <img class="feature-icon" src="media/icon_grabguts.png" alt="">
+                Grow into power
+              </strong>
+              <p>Take down increasingly challenging enemies and explore different biomes to earn new parts.</p>
+            </div>
+            <div class="feature-row-media">
+              <img
+                src="media/caps/power.png"
+                alt="A large segmented creature with glowing orange claws"
+                decoding="async"
+                loading="lazy"
+              >
+            </div>
           </div>
-        </div>
+        </article>
       </section>
 
       <section class="follow" id="mailing-list">
         <strong>Follow development</strong>
         <p>
-          Molec is currently in pre-alpha development. At present, our primary channel is our discord - join today to follow development!
+          Molec is currently in pre-alpha development. Discord is the primary channel — join from the button above, or stay in the loop here.
         </p>
-
-        <div class="survey-cta">
-          <div class="survey-cta-head">
-            <img class="survey-cta-icon" src="media/discord.png" alt="">
-            <div class="survey-cta-kicker">Discord</div>
-          </div>
-          <p class="survey-cta-body">
-            Join the server for dev updates, community chat, and playtesting announcements.
-          </p>
-          <a
-            class="survey-button"
-            href="https://discord.gg/A6KTYr9Yh9"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Join Discord
-          </a>
-        </div>
 
         <div class="survey-cta">
           <div class="survey-cta-head">
@@ -161,36 +205,53 @@
       </section>
     </main>
 
-    <footer class="social-tray" aria-label="Social links">
-      <div class="social-header">Social Media</div>
-      <a
-        class="social-link"
-        href="https://www.youtube.com/@Molec-game"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="YouTube"
-        title="YouTube"
-      >
+    <footer class="site-footer">
+      <div class="footer-brand">
         <img
-          class="social-icon"
-          src="media/youtube-logo-white-3405609656.png"
+          class="footer-brand-logo"
+          src="media/vfl/vfl_logo.png"
           alt=""
+          decoding="async"
         >
-      </a>
-      <a
-        class="social-link"
-        href="https://discord.gg/A6KTYr9Yh9"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Discord"
-        title="Discord"
-      >
         <img
-          class="social-icon"
-          src="media/discord.png"
-          alt=""
+          class="footer-brand-name"
+          src="media/vfl/vfl_name.png"
+          alt="Ventifact"
+          decoding="async"
         >
-      </a>
+      </div>
+
+      <div class="social-tray" aria-label="Social links">
+        <div class="social-header">Social Media</div>
+        <a
+          class="social-link"
+          href="https://www.youtube.com/@Molec-game"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+          title="YouTube"
+        >
+          <img
+            class="social-icon"
+            src="media/youtube-logo-white-3405609656.png"
+            alt=""
+          >
+        </a>
+        <a
+          class="social-link"
+          href="https://discord.gg/A6KTYr9Yh9"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Discord"
+          title="Discord"
+        >
+          <img
+            class="social-icon"
+            src="media/discord.png"
+            alt=""
+          >
+        </a>
+      </div>
     </footer>
   </div>
 
@@ -373,7 +434,7 @@
     // Tune in :root (--hover-particles-*). Circles are a pre-baked sprite blit
     // (cheaper than hexagons or per-frame arc()).
     (function () {
-      const TARGET_SELECTOR = "button, .survey-button, .social-link";
+      const TARGET_SELECTOR = "button, .survey-button, .hero-cta-row, .hero-cta-button, .social-link";
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
