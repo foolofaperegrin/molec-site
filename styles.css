@@ -137,7 +137,7 @@ body::after {
 
 .site-header {
   text-align: center;
-  margin: 0 0 28px;
+  margin: 0 0 16px;
 }
 
 .hero-band {
@@ -264,23 +264,29 @@ section {
 
 .intro {
   max-width: 760px;
+  margin: 0 auto 28px;
+  text-align: center;
 }
 
 .intro p {
-  font-size: 16px;
-  margin: 0 0 18px;
+  font-size: clamp(16px, 2.2vw, 20px);
+  margin: 0;
   color: #ffffff;
   font-family: "RenogareSoft-Regular", sans-serif;
 }
 
 .body-copy {
+  
   max-width: 760px;
+  margin: 0 auto 28px;
+  text-align: center;
 }
 
 .body-copy p {
-  margin: 0 0 16px;
+  
   color: var(--muted);
   font-size: 17px;
+  
 }
 
 h2 {
@@ -690,14 +696,14 @@ button {
 }
 
 .site-footer {
+  position: relative;
   margin-top: 28px;
   padding-top: 18px;
   border-top: 1px solid var(--line);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px 28px;
-  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 44px;
 }
 
 .footer-brand {
@@ -706,6 +712,11 @@ button {
   align-items: center;
   gap: 12px;
   height: var(--footer-brand-height);
+  max-width: 100%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .footer-brand-logo,
@@ -718,26 +729,25 @@ button {
 }
 
 .social-tray {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: none;
+  margin: 0;
+  padding: 0;
+  border: none;
   display: flex;
   gap: 14px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-left: auto;
 }
 
 .social-header {
   flex-basis: auto;
-  text-align: right;
+  text-align: center;
   font-family: "RenogareSoft-Regular", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 14px;
   color: var(--heading);
-  margin: 0 2px 0 0;
+  margin: 0;
 }
 
 .social-link {
@@ -855,6 +865,17 @@ button.social-link {
   .feature-row--reverse .feature-title {
     justify-content: flex-start;
   }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .footer-brand {
+    position: static;
+    transform: none;
+  }
 }
 
 @media (max-width: 700px) {
@@ -897,6 +918,15 @@ button.social-link {
     flex: 1 1 auto;
     width: auto;
     max-width: none;
+  }
+
+  .hero-cta-note {
+    padding: 0 8px;
+  }
+
+  .footer-brand {
+    --footer-brand-height: 36px;
+    gap: 8px;
   }
 
   .signup-form {
