@@ -327,6 +327,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
   max-width: 100%;
 }
@@ -403,10 +404,49 @@ h2 {
   text-align: center;
 }
 
+.hero-cta-button--playtest {
+  background: var(--heading);
+  color: #2a0d16;
+  border-color: rgba(232, 137, 164, 0.55);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.32),
+    0 0 34px rgba(232, 137, 164, 0.22);
+}
+
 .hero-cta-row:hover .hero-cta-button,
 .hero-cta-row:focus-visible .hero-cta-button {
   background: #3cc464;
   border-color: rgba(186, 255, 214, 0.7);
+}
+
+.hero-cta-row:hover .hero-cta-button--playtest,
+.hero-cta-row:focus-visible .hero-cta-button--playtest {
+  background: #f09db6;
+  border-color: rgba(255, 200, 214, 0.7);
+}
+
+.intro-video {
+  width: 100%;
+  margin: 0 0 48px;
+}
+
+.intro-video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  background: #031a18;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+}
+
+.intro-video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border: 0;
 }
 
 @media (max-width: 900px) {
@@ -954,13 +994,18 @@ button.social-link {
     border-radius: 26px;
   }
 
+  .intro-video-frame {
+    border-radius: 16px;
+  }
+
   .hero-cta-cluster {
     width: 100%;
     max-width: 420px;
   }
 
   .hero-cta-row {
-    flex: 1 1 auto;
+    flex: 1 1 100%;
+    justify-content: center;
     width: auto;
     max-width: none;
   }

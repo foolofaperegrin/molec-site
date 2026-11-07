@@ -4,6 +4,7 @@
   <title>MOLEC</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -53,6 +54,14 @@
             <span class="hero-cta-button">Join the Discord</span>
           </a>
           <a
+            class="hero-cta-row"
+            href="https://tinyurl.com/playtestmolec"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="hero-cta-button hero-cta-button--playtest">Playtest Sign Up</span>
+          </a>
+          <a
             class="social-link"
             href="https://www.youtube.com/@Molec-game"
             target="_blank"
@@ -94,6 +103,18 @@
         <p>
           In Molec, creatures are assembled from modular parts that can be chained together into limbs, tools, armour, and weapons. Different configurations create different movements, abilities, and survival strategies.
         </p>
+      </section>
+
+      <section class="intro-video" aria-label="Molec trailer">
+        <div class="intro-video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/G94hyjWnqBo"
+            title="Evolving complex life in Molec"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
       </section>
 
       <section class="feature-rows" aria-label="Features">
@@ -329,7 +350,7 @@
         if (video.dataset.srcAttached) return;
         video.dataset.srcAttached = "1";
         const source = document.createElement("source");
-        source.src = "media/verbs.mp4";
+        source.src = "media/overview.mp4";
         source.type = "video/mp4";
         video.appendChild(source);
         video.load();
