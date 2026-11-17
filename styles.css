@@ -28,9 +28,10 @@
   /* Feature row bands. Hex so the CSS color picker works.
      Sketch overlay is media/molecbg.png; opacity 0 = off. */
   --feature-row-1-color: #0f4850;
-  --feature-row-2-color: #092e33;
-  --feature-row-3-color: #072024;
-  --feature-row-4-color: #010607;
+  --feature-row-2-color: #0c3c44;
+  --feature-row-3-color: #092e33;
+  --feature-row-4-color: #072024;
+  --feature-row-5-color: #010607;
   --feature-row-sketch: url("media/molecbg.png");
   --feature-row-sketch-opacity: 0.07;
   --feature-row-frame: rgba(255, 255, 255, 0.12);
@@ -528,19 +529,24 @@ h2 {
 
 .feature-row:nth-child(2) {
   --feature-row-color: var(--feature-row-2-color);
-  --feature-row-sketch-pos: 82% 22%;
+  --feature-row-sketch-pos: 76% 62%;
   --feature-row-shade-angle: 270deg;
 }
 
 .feature-row:nth-child(3) {
   --feature-row-color: var(--feature-row-3-color);
-  --feature-row-sketch-pos: 36% 78%;
+  --feature-row-sketch-pos: 82% 22%;
 }
 
 .feature-row:nth-child(4) {
   --feature-row-color: var(--feature-row-4-color);
-  --feature-row-sketch-pos: 68% 12%;
+  --feature-row-sketch-pos: 36% 78%;
   --feature-row-shade-angle: 270deg;
+}
+
+.feature-row:nth-child(5) {
+  --feature-row-color: var(--feature-row-5-color);
+  --feature-row-sketch-pos: 68% 12%;
 }
 
 .feature-row-inner {
