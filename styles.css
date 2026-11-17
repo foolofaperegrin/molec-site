@@ -640,6 +640,7 @@ h2 {
 }
 
 .follow {
+  width: min(100%, 480px);
   max-width: 760px;
   padding-top: 18px;
   color: var(--heading);
@@ -732,13 +733,26 @@ h2 {
 
 .signup-form {
   display: flex;
+  flex-flow: row nowrap;
   gap: 12px;
-  flex-wrap: wrap;
   align-items: stretch;
 }
 
+.signup-form input[type="email"] {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.signup-form button {
+  flex: 0 0 auto;
+  width: auto;
+  max-height: none;
+  white-space: nowrap;
+}
+
 input[type="email"] {
-  flex: 1 1 280px;
+  flex: 1 1 auto;
   min-width: 0;
   padding: 14px 16px;
   border-radius: 12px;
@@ -1066,13 +1080,13 @@ button.social-link {
   }
 
   .signup-form {
-    flex-direction: column;
+    flex-flow: row nowrap;
   }
 
-  button,
-  input[type="email"] {
-    width: 100%;
-    max-height: 2em;
+  .signup-form button,
+  .signup-form input[type="email"] {
+    width: auto;
+    max-height: none;
   }
 
   .hero-title {
