@@ -277,6 +277,20 @@ section {
   font-family: "RenogareSoft-Regular", sans-serif;
 }
 
+.medley-hero {
+  width: min(100%, 640px);
+  margin: 0 auto 42px;
+}
+
+.medley-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--feature-row-frame);
+  border-radius: var(--feature-row-radius);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+}
+
 .body-copy {
   
   max-width: 760px;
